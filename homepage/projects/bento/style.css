@@ -1,0 +1,224 @@
+:root {
+  --primary-color: #03061c;
+  --secondary-color: #242649;
+  --font-p: #6d679b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h2, h3, li, textPath {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.9), #6d46d8a2);
+  /*-webkit-background-clip: text;*/
+  -webkit-text-fill-color: transparent;
+}
+
+p {
+  color: var(--font-p)
+}
+
+h1 {
+  font-family: 'Alexer', sans-serif;
+  font-weight: 500;
+}
+
+h2, h3, p, li, textPath, button {
+  font-family: 'Alexer', sans-serif;
+  font-weight: 100;
+}
+
+span {
+  font-family: 'Atyp_regular', sans-serif;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'Atyp_regular';
+  src: url('./font/AtypText-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Alexer';
+  src: url('./font/Fontspring-DEMO-alexerpro-medium-BF6407ee57cdb42.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Atyp_bold';
+  src: url('./font/AtypText-Semibold.ttf') format('truetype');
+}
+
+body {
+  font-family: 'MaPolice', sans-serif;
+  background-color: var(--primary-color);
+}
+
+.border {
+  background-color: black;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  width: 10vw;
+}
+
+.circle, .ball {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.circle {
+  width: clamp(240px, 31.5vw, 320px);
+  background: var(--primary-color);
+}
+
+.text_circle {
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ball {
+  width: clamp(200px, 33vw, 320px);
+}
+  
+.logo1 {
+  width: 3rem;
+  height: 3rem;
+}
+
+.logo2 {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.ai {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+.grid{
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  padding: 1%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: clamp(10px, 2vw, 20px);
+  grid-template-areas:
+    "topleft top top topright"
+    "topleft top top topright2"
+    "botleft centerleft centerright botright"
+    "botleft2 centerleft centerright botright";
+}
+
+/* ZONES */
+.top_left { grid-area: topleft; }
+.top { grid-area: top; }
+.top_right { grid-area: topright; }
+.top_right2 { grid-area: topright2; }
+.void1 { grid-area: void1; }
+.void2 { grid-area: void2; }
+.center { grid-area: center; }
+.bot_left { grid-area: botleft; }
+.bot_left2 { grid-area: botleft2; }
+.center_left { grid-area: centerleft; }
+.center_right { grid-area: centerright; }
+.bot_right { grid-area: botright; }
+
+/*Pour toutes les cards*/
+.grid > div {
+  background-color: var(--secondary-color);
+  width: 100%;
+  height: 100%;
+  border-radius: clamp(15px, 3vw, 30px);
+  padding: clamp(15px, 1.5vw, 40px);
+}
+
+.center_left, .center_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 100%;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;         /* pour centrer horizontalement */
+  text-align: center;          /* pour centrer le texte si besoin */
+}
+
+.top p {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* aligne verticalement */
+  gap: 0.5rem; /* espace entre logo et texte */
+}
+
+.div_top * {
+  color: white!important;
+}
+
+/*Centrer les cards*/
+.bot_left, .bot_left2, .top_right, .top_right2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+}
+
+/*Autres cards*/
+.top_left *, .center_left *, .center_right *, .bot_right * {
+  position: flex;
+}
+
+/*Uniquement top_left*/
+.top_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 100%;
+}
+
+.top_left ul {
+  list-style: none;
+}
+
+/*Button*/
+.bot_left2 button {
+  display: flex;
+  padding: clamp(10px, 2vw, 40px) clamp(15px, 3vw, 80px);
+  border: 0.5rem solid var(--primary-color);
+  border-radius: 20%;
+  font-family: 'Atyp_regular', sans-serif;
+}
+
+.template {
+  display: flex;
+  place-content: center;
+}
+
+.template img {
+  margin-top: 100px;
+  width: 95vw;
+  height: 95vh;
+  object-fit: contain;
+}

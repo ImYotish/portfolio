@@ -1,0 +1,41 @@
+let elements = {};
+let counters = {};
+const fruits = ["orange", "kiwi", "banane"];
+
+
+fruits.forEach(fruit => {
+  counters[fruit] = 0;
+  elements[fruit] = {
+  plusBtn: document.getElementById(`plus-${fruit}`),
+  minusBtn: document.getElementById(`minus-${fruit}`),
+  display: document.getElementById(`compteur-${fruit}`),
+  stock: document.getElementById(`stock-${fruit}`)
+};
+  elements[fruit].plusBtn.addEventListener('click', () => {
+    counters[fruit]++;
+    updateDisplay(fruit);
+  })
+  elements[fruit].minusBtn.addEventListener('click', () => {
+    counters[fruit]--;
+    updateDisplay(fruit);
+  })
+  updateDisplay(fruit);
+});
+
+const stock = JSON.parse(localStorage.getItem("stock")) || {};
+  fruits.forEach(fruit => {
+    if (!stock[fruit]) {stock[fruit] = 0}
+});
+
+function updateDisplay(fruit) {
+  elements[fruit].display.textContent = `${capitalize(fruit)} : ${counters[fruit]}`;
+}
+
+function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+const valid = document.getElementById('valid');
+
+valid.addEventListener('click', () => {
+});

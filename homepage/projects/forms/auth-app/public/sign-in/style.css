@@ -1,0 +1,177 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Nexa Heavy';
+  src: url('../../../../../font/NEXA-HEAVY.TTF') format('truetype');
+}
+
+input {
+  padding: 15px;
+}
+
+body {
+  animation: fondGradient 5s linear infinite;
+}
+
+@keyframes fondGradient {
+  0%   {
+    background-color: white;
+  }
+  25% {
+    background-color: rgb(0, 0, 0);
+  }
+  50% {
+    background-color: black
+  }
+  75% {
+    background-color: rgb(0, 0, 0);
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+@keyframes colorText{
+  0%   {
+    color: black;
+  }
+  25% {
+    color: rgb(255, 255, 255);
+  }
+  50% {
+    color: white
+  }
+  75% {
+    color: rgb(255, 255, 255);
+  }
+  100% {
+    color: black;
+  }
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-page {
+    width: 90vw;
+    height: 10vh;
+    font-size: 50px;
+    font-family: Nexa Heavy;
+    transition: 0.3s ease-in-out;
+    border: none;
+    border-radius: 0 0 50% 50%;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.home-page:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.1);
+    border: 3px solid white;
+    border-radius: 0 0 50% 50%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    gap: 5vh;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    gap: 1vh;
+    text-transform: uppercase;
+    font-family: Nexa Heavy;
+    font-size: 3vw;
+    animation: colorText 5s linear infinite;
+}
+
+form > div > input, form > div > button {
+    height: 70px;
+    text-transform: uppercase;
+    font-family: Nexa Heavy;
+    font-size: 3vw;
+}
+
+.input-password {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.input-password input {
+  width: 50vw;
+  height: 70px;
+  text-transform: uppercase;
+  font-family: Nexa Heavy;
+  font-size: 3vw;
+}
+
+.input-password span {
+  position: absolute;
+  cursor: pointer;
+}
+
+#submit {
+    text-transform: uppercase;
+    font-family: Nexa Heavy;
+    font-size: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid blue;
+}
+
+#submit:active {
+    background-color: black;
+    color: white
+}
+
+#submit:hover {
+  border: 5px solid lightblue;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign, .change {
+  text-decoration: none;
+  text-transform: none;
+  font-family: Nexa Heavy;
+  font-size: 2vw;
+  animation: colorText 5s linear infinite;
+}
+
+.bottom a {
+  text-decoration: none;
+  padding-bottom: -30px;
+  border-bottom: 5px solid blue;
+}
+
+.bottom a:hover {
+  border-bottom: 5px solid lightblue;
+}
+
+#result {
+  margin-top: 1em;
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}

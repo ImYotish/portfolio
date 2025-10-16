@@ -1,0 +1,19 @@
+# Ignorer tous les node_modules
+**/node_modules/
+
+# Ignorer tous les fichiers .env
+**/.env
+
+# Dossiers de build
+dist/
+build/
+
+# Logs
+*.log
+
+# Fichiers système inutiles
+.DS_Store
+Thumbs.db
+
+# Config éditeur
+.vscode/

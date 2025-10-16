@@ -1,0 +1,48 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Nexa Heavy';
+  src: url('font/NEXA-HEAVY.TTF') format('truetype');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3.5vw;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        180deg,
+        black -10%,
+        white 200%
+    );
+}
+
+button {
+    width: 90vw;
+    height: 10vh;
+    font-size: 50px;
+    font-family: Nexa Heavy;
+    transition: 0.3s ease-in-out;
+    border: none;
+}
+
+button:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.1);
+}
+
+.divider {
+    width: 90vw;
+    height: 2px;
+    margin-top: 50px;
+    background-color: black;
+    border-radius: 100%;
+}

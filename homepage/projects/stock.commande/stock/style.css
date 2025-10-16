@@ -1,0 +1,119 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: rgb(7, 7, 7);
+    padding: 1.5vw;
+    box-shadow: 0px 5px 30px rgba(0, 0, 0, 1);
+}
+
+body {
+    background-color: rgb(100, 117, 117);
+}
+
+.back {
+    display: inline-block;
+    background-color: white;
+    padding: 0.8vw;
+    border: none;
+    border-radius: 10%;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.back:hover {
+    transform: scale(1.1);
+    background-color: rgb(214, 214, 214);
+}
+
+.img-back {
+    width: clamp(15px, 5vw, 40px);
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4vw;
+    padding: 2vw;
+}
+
+.box div {
+    display: flex;
+    width: 200px;
+    justify-content: space-evenly;
+}
+
+.box button {
+    width: 19%;
+    color: white;
+    border: solid 0.5px  white;
+    background-color: rgb(0, 0, 0);
+    border-radius: 20%;
+    font-size: clamp(20px, 2.5vw, 25px);
+}
+
+.box button:active {
+    background-color: white;
+    color: black;
+}
+
+.box p {
+    width: 59%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: solid 0.5px  white;
+    border-radius: 5px;
+    background-color: rgb(0, 0, 0);
+    font-size: clamp(15px, 2vw, 20px);
+}
+
+.box img {
+    width: 200px;
+    height: 200px;
+    border-radius: 20%;
+    object-fit: cover;
+}
+
+.pad {
+    padding: 2vw;
+}
+
+#valid {
+    width: 96vw;
+    padding: 1vw;
+    cursor: pointer;
+    color: white;
+    border: solid 0.5px  white;
+    background-color: rgb(0, 0, 0);
+    border-radius: 5px;
+    font-size: clamp(20px, 2.5vw, 25px);
+}
+
+#valid:active {
+    background: white;
+    color: black;
+}
+
+.stock p {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: solid 0.5px  white;
+    border-radius: 5px;
+    background-color: rgb(0, 0, 0);
+    font-size: clamp(15px, 2vw, 20px);
+}
+
+.stock img {
+    width: 200px;
+    height: 200px;
+    border-radius: 20%;
+    object-fit: cover;
+}
