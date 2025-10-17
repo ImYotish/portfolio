@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
     try {
       id = nanoid(16);
       await db.query(
-        "INSERT INTO list_conv (conv_id, titre) VALUES($1, $2)",
+        "INSERT INTO chat_list (conv_id, titre) VALUES($1, $2)",
         [id, "En cours..."]
       );
       success = true;
@@ -53,12 +53,12 @@ router.post('/', async (req, res) => {
 
 
       await db.query(
-        "UPDATE list_conv SET titre = $1 WHERE conv_id = $2",
+        "UPDATE chat_list SET titre = $1 WHERE conv_id = $2",
         [title, id]
       );
 
       await db.query(
-        "INSERT INTO conversations (id, input, output) VALUES($1, $2, $3)",
+        "INSERT INTO chat (id, input, output) VALUES($1, $2, $3)",
         [id, input, output]
       );
 })

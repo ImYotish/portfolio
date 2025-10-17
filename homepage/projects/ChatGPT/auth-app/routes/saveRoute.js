@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
 
     const { message } = req.body
 
-    const data = db.query("INSERT INTO list_conv (title) VALUES()")
+    const data = db.query("INSERT INTO chat_list (titre) VALUES()")
 
 })
 
