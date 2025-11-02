@@ -15,7 +15,6 @@ const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use('/public', express.static('public'));
-app.use(cors({origin: "http://localhost:5501"}));
 app.use(express.json());
 
 // Catch-all pour les conversations
@@ -33,7 +32,7 @@ Object.entries(routes).forEach(([route, handler]) =>
 );
 
 app.listen(PORT, () => {
-  console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`);
+  console.log(`🚀 Serveur lancé sur http://localhost:${PORT}`);
 });
 
 

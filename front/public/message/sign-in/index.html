@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Connexion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Se connecter</h2>
+    <form id="loginForm">
+      <label for="username">Nom d’utilisateur</label>
+      <input type="text" id="username" required />
+
+      <label for="password">Mot de passe</label>
+      <div class="password-wrapper">
+        <input type="password" id="password" required />
+        <button type="button" id="togglePassword" tabindex="1">🙈</button>
+      </div>
+
+      <button type="submit">Se connecter</button>
+      <div id="result"></div>
+
+      <div class="links">
+        <a href="../sign-up/index.html">Créer un compte</a>
+        <a href="../password/index.html">Mot de passe oublié ?</a>
+        <a href="../../../../../../homepage/index.html">...</a>
+      </div>
+    </form>
+  </div>
+  <script src="/env.js"></script>
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
