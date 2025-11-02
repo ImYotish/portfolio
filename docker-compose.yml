@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   # Service principal (homepage)
   main:
@@ -22,8 +20,6 @@ services:
       - ./homepage/projects/ChatGPT/auth-app:/app
     expose:
       - "3000"
-    env_file:
-      - ./homepage/projects/ChatGPT/auth-app/.env
     networks:
       - backend
 
@@ -35,8 +31,6 @@ services:
       - ./homepage/projects/message/auth-app:/app
     expose:
       - "3000"
-    env_file:
-      - ./homepage/projects/message/auth-app/.env
     networks:
       - backend
 
