@@ -35,8 +35,9 @@ server {
     }
 
     location /chatgpt/ {
-        rewrite ^/chatgpt/(.*)$ /$1 break;
-        proxy_pass http://chatgpt:3000;
+        root /usr/share/nginx/html;
+        index index.html;
+        try_files $uri $uri/ =404;
     }
 
     # API Message

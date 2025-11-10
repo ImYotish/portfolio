@@ -11,7 +11,7 @@ async function checkSession() {
 
     if (data.loggedIn) {
       // Si déjà connecté → redirection directe
-      window.location.href = "/message/connected/index.html";
+      window.location.href = "../../message/";
     }
   } catch (err) {
     console.error("❌ Erreur checkSession:", err);
@@ -22,6 +22,15 @@ checkSession();
 
 // 👉 Appel automatique au chargement de la page
 document.addEventListener("DOMContentLoaded", checkSession);
+
+const passwordEl = document.querySelector('#password');
+const togglePassword = document.getElementById('togglePassword');
+
+  togglePassword.addEventListener('click', () => {
+      const hidden = passwordEl.type === 'password';
+      passwordEl.type = hidden ? 'text' : 'password';
+      togglePassword.textContent = hidden ? '👁️' : '🙈';
+  })
 
 // 👉 Ton code d’inscription
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
@@ -58,7 +67,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
     if (data.success) {
       console.log("Redirection");
-      window.location.href = "/message/connected/index.html";
+      window.location.href = "../../message/";
     } else {
       resultEl.textContent = data.message || 'Erreur lors de la création du compte';
     }

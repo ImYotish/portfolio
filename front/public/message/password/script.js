@@ -48,7 +48,7 @@ form.addEventListener('submit', async e => {
         if (!res.ok) {
             result.textContent = data.message
         } if (data.success) {
-            window.location.href = '/public/connected/index.html';
+            window.location.href = '../../message/';
         }
         
     }

@@ -9,8 +9,7 @@ async function checkSession() {
     console.log("🔎 Résultat checkSession:", data);
 
     if (data.loggedIn) {
-      // Si déjà connecté → redirection directe
-      window.location.href = "/message/connected/index.html";
+      window.location.href = "../../message/";
     }
   } catch (err) {
     console.error("❌ Erreur checkSession:", err);
@@ -19,13 +18,22 @@ async function checkSession() {
 
 checkSession();
 
+const passwordEl = document.querySelector('#password');
+const togglePassword = document.getElementById('togglePassword');
+
+  togglePassword.addEventListener('click', () => {
+      const hidden = passwordEl.type === 'password';
+      passwordEl.type = hidden ? 'text' : 'password';
+      togglePassword.textContent = hidden ? '👁️' : '🙈';
+  })
+
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const username = document.querySelector('#username').value.trim();
-  const password = document.querySelector('#password').value;
+  const password = document.querySelector('#password').value
   const resultEl = document.getElementById('result');
-
+  
   if (!username || !password) {
     resultEl.textContent = 'Veuillez remplir tous les champs';
     return;
@@ -47,7 +55,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     console.log("📨 Réponse backend:", data);
 
     if (res.ok && data.success) {
-      window.location.href = "/message/connected/index.html";
+      window.location.href = "../../message/";
     } else {
       resultEl.textContent = data.message || 'Erreur lors de la connexion';
     }

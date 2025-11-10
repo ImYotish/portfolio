@@ -1,3 +1,5 @@
+const { BASE_URL, MAIN_URL, CHATGPT_URL, MESSAGE_URL } = window._env_;
+
 document.addEventListener('DOMContentLoaded', async () => {
   const form = document.querySelector('#form');
   const input = document.querySelector('#input');
@@ -157,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     console.log(messages)
 
-    const res = await fetch('http://localhost:3000/chatgpt/chat', {
+    const res = await fetch(`${CHATGPT_URL}/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

@@ -48,6 +48,7 @@ router.post('/', async (req, res) => {
   let output = '';
   await api(messages, (token) => {
     output += token;
+    console.log(token)
     res.write(token);
   });
 

@@ -20,6 +20,8 @@ services:
       - ./homepage/projects/ChatGPT/auth-app:/app
     expose:
       - "3000"
+    env_file:
+      - ./homepage/.env
     networks:
       - backend
 
@@ -31,6 +33,8 @@ services:
       - ./homepage/projects/message/auth-app:/app
     expose:
       - "3000"
+    env_file:
+      - ./homepage/.env
     networks:
       - backend
 

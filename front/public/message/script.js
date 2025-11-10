@@ -24,31 +24,24 @@ async function sessionCheck() {
     if (res.ok && data.loggedIn && data.user) {
       console.log('✅ Utilisateur connecté:', data.user);
       welcome.textContent = `Bienvenue ${data.user.username || data.user.email}, tu es maintenant connecté !`;
+      document.body.style.display = 'block'
       return true;
     } else {
       console.warn('❌ Session non reconnue, redirection immédiate...');
-      window.location.replace('../sign-in/index.html');
+      window.location.replace('./login/'); 
       return false;
     }
   } catch (err) {
     console.error('❌ Erreur test session:', err);
-    window.location.replace('../sign-in/index.html');
+    window.location.replace('./login/'); 
     return false;
   }
 }
 
 sessionCheck();
 
-// Vérifications auto quand la page revient en focus/cache
-window.addEventListener('pageshow', e => { if (e.persisted) sessionCheck(); });
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') sessionCheck(); });
-window.addEventListener('focus', () => sessionCheck());
-
 // ------------------- DOM Ready -------------------
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('🚀 Page chargée normalement');
-  const loggedIn = await sessionCheck();
-  if (!loggedIn) return;
 
   // ------------------- Ajout conversation -------------------
   function addConversation({ id, username }) {
@@ -217,7 +210,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        window.location.replace('../sign-in/index.html');
+        window.location.replace('./login/');
       } else {
         result.textContent = data.message || "Erreur de déconnexion";
       }
