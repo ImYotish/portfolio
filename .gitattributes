@@ -1,0 +1,4 @@
+docker-compose.yml merge=ours
+default.conf.template merge=ours
+nginx.dev.conf merge=ours
+front/vite.config.js merge=ours
