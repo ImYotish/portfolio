@@ -17,8 +17,3 @@ Thumbs.db
 
 # Config éditeur
 .vscode/
-
-docker-compose.yml
-default.conf.template
-nginx.dev.conf
-vite.config.js
