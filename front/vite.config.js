@@ -1,9 +1,6 @@
 import { defineConfig } from 'vite'
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/', // important pour tes routes SPA
-  build: {
-    outDir: '/var/www/growthapp', // chemin absolu vers ton dossier servi par Nginx
-    emptyOutDir: true             // vide le dossier avant chaque build
-  }
+  base: './', // important pour éviter les retours à la racine
 })
