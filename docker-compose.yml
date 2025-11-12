@@ -1,39 +1,63 @@
+
 services:
+  # Service principal (homepage)
   main:
     build: ./homepage
-    command: npm start
+    command: npm run dev
+    volumes:
+      - ./homepage:/app
     expose:
       - "3000"
-    ports:
-      - "3001:3000"   # main dispo sur localhost:3001
     env_file:
       - ./homepage/.env
     networks:
       - backend
 
+  # Service ChatGPT
   chatgpt:
     build: ./homepage/projects/ChatGPT/auth-app
-    command: npm start
+    command: npm run dev
+    volumes:
+      - ./homepage/projects/ChatGPT/auth-app:/app
     expose:
       - "3000"
-    ports:
-      - "3002:3000"   # chatgpt dispo sur localhost:3002
     env_file:
       - ./homepage/.env
     networks:
       - backend
 
+  # Service Message
   message:
     build: ./homepage/projects/message/auth-app
-    command: npm start
+    command: npm run dev
+    volumes:
+      - ./homepage/projects/message/auth-app:/app
     expose:
       - "3000"
-    ports:
-      - "3003:3000"   # message dispo sur localhost:3003
     env_file:
       - ./homepage/.env
     networks:
       - backend
+
+  # Nginx en frontal
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "3000:80"
+    volumes:
+      # Template de config Nginx
+      - ./default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      # Dossier public/dist généré par Vite
+      - ./front/dist:/usr/share/nginx/html:ro
+    env_file:
+      - ./.env
+    depends_on:
+      - main
+      - chatgpt
+      - message
+    networks:
+      - backend
+    restart: unless-stopped
 
 networks:
   backend:
