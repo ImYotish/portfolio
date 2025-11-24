@@ -41,6 +41,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - BASE_URL=${BASE_URL}
+      - MAIN_URL=${MAIN_URL}
+      - CHATGPT_URL=${CHATGPT_URL}
+      - MESSAGE_URL=${MESSAGE_URL}
     volumes:
       - /var/www/growthapp:/var/www/growthapp:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
