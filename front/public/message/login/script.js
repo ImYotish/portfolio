@@ -6,13 +6,13 @@ async function checkSession() {
       credentials: "include"
     });
     const data = await res.json();
-    console.log("🔎 Résultat checkSession:", data);
+    console.log("🔎 checkSession result:", data);
 
     if (data.loggedIn) {
-      window.location.href = "../../message/";
+      window.location.href = "../../message/index.html";
     }
   } catch (err) {
-    console.error("❌ Erreur checkSession:", err);
+    console.error("❌ checkSession error:", err);
   }
 }
 
@@ -35,12 +35,12 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   const resultEl = document.getElementById('result');
   
   if (!username || !password) {
-    resultEl.textContent = 'Veuillez remplir tous les champs';
+    resultEl.textContent = 'Please fill in all fields';
     return;
   }
 
   try {
-    console.log('📝 Tentative de connexion pour:', username);
+    console.log('📝 Attempting login for:', username);
 
     // 👉 On utilise MAIN_URL injecté par Nginx via /env.js
 
@@ -55,13 +55,13 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     console.log("📨 Réponse backend:", data);
 
     if (res.ok && data.success) {
-      window.location.href = "../../message/";
+      window.location.href = "../../message/index.html";
     } else {
-      resultEl.textContent = data.message || 'Erreur lors de la connexion';
+      resultEl.textContent = data.message || 'Error during login';
     }
 
   } catch (err) {
-    console.error('❌ Erreur réseau:', err);
-    resultEl.textContent = 'Erreur de connexion au serveur';
+    console.error('❌ Network error:', err);
+    resultEl.textContent = 'Server connection error';
   }
 });

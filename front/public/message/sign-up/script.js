@@ -1,26 +1,26 @@
 const { MAIN_URL } = window._env_;
 
-// Fonction utilitaire pour vérifier la session
+// Utility function to check session
 async function checkSession() {
   try {
     const res = await fetch(`${MAIN_URL}/check-session`, {
       credentials: "include"
     });
     const data = await res.json();
-    console.log("🔎 Résultat checkSession:", data);
+    console.log("🔎 checkSession result:", data);
 
     if (data.loggedIn) {
-      // Si déjà connecté → redirection directe
-      window.location.href = "../../message/";
+      // If already logged in → redirect
+      window.location.href = "../../message/index.html";
     }
   } catch (err) {
-    console.error("❌ Erreur checkSession:", err);
+    console.error("❌ checkSession error:", err);
   }
 }
 
 checkSession();
 
-// 👉 Appel automatique au chargement de la page
+// Auto-call on page load
 document.addEventListener("DOMContentLoaded", checkSession);
 
 const passwordEl = document.querySelector('#password');
@@ -32,7 +32,7 @@ const togglePassword = document.getElementById('togglePassword');
       togglePassword.textContent = hidden ? '👁️' : '🙈';
   })
 
-// 👉 Ton code d’inscription
+// Sign-up code
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -41,12 +41,12 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   const resultEl = document.getElementById('result');
 
   if (!username || !password) {
-    resultEl.textContent = 'Veuillez remplir tous les champs';
+    resultEl.textContent = 'Please fill in all fields';
     return;
   }
 
   try {
-    console.log('📝 Tentative d’inscription pour:', username);
+    console.log('📝 Attempting registration for:', username);
 
     const res = await fetch(`${MAIN_URL}/register`, {
         method: 'POST',
@@ -67,14 +67,14 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
     if (data.success) {
       console.log("Redirection");
-      window.location.href = "../../message/";
+      window.location.href = "../../message/index.html";
     } else {
-      resultEl.textContent = data.message || 'Erreur lors de la création du compte';
+      resultEl.textContent = data.message || 'Error creating account';
     }
 
   } catch (err) {
-    console.error('❌ Erreur:', err);
-    // err.message sera plus précis grâce au 'throw new Error'
-    resultEl.textContent = err.message || 'Erreur de connexion au serveur';
+    console.error('❌ Error:', err);
+    // err.message will be more precise because of the thrown Error
+    resultEl.textContent = err.message || 'Server connection error';
   }
 });

@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Mot de passe oublié</title>
+  <title>Forgot password</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h2>Mot de passe oublié</h2>
+    <h2>Forgot password</h2>
     <form id="passwordForm">
-      <label for="username">Nom d’utilisateur</label>
+      <label for="username">Username</label>
       <input type="text" id="username" required />
 
-      <label for="password1">Nouveau mot de passe</label>
+      <label for="password1">New password</label>
       <div class="password-wrapper">
         <input type="password" id="password1" class="password" required />
         <button type="button" class="togglePassword" tabindex="-1">🙈</button>
       </div>
 
-      <label for="password2">Confirmer le mot de passe</label>
+      <label for="password2">Confirm password</label>
       <div class="password-wrapper">
         <input type="password" id="password2" class="password" required />
         <button type="button" class="togglePassword" tabindex="-1">🙈</button>
       </div>
 
-      <button type="submit">Se connecter</button>
+      <button type="submit">Change password</button>
       <div id="result"></div>
 
       <div class="links">
-        <a href="../login/">Se connecter</a>
-        <a href="../sign-up/">S'inscrire</a>
+        <a href="../login/index.html">Sign in</a>
+        <a href="../sign-up/index.html">Sign up</a>
       </div>
     </form>
   </div>

@@ -10,10 +10,10 @@ router.post('/', requireAuth, async (req, res) => {
     const { content, recipientId } = req.body;
 
     if (!content || !recipientId) {
-      return res.status(400).json({ success: false, message: 'Paramètres manquants' });
+      return res.status(400).json({ success: false, message: 'Missing parameters' });
     }
     if (recipientId === senderId) {
-      return res.status(400).json({ success: false, message: "Impossible de s'envoyer un message à soi-même" });
+      return res.status(400).json({ success: false, message: "Cannot send a message to yourself" });
     }
 
     // 1) Récupérer les convs du sender
@@ -23,8 +23,8 @@ router.post('/', requireAuth, async (req, res) => {
       .eq('user_id', senderId);
 
     if (senderError) {
-      console.error('Erreur récupération convs sender:', senderError);
-      return res.status(500).json({ success: false, message: 'Erreur récupération convs sender' });
+      console.error('Error fetching sender convs:', senderError);
+      return res.status(500).json({ success: false, message: 'Error fetching sender conversations' });
     }
 
     // 2) Récupérer les convs du destinataire
@@ -34,8 +34,8 @@ router.post('/', requireAuth, async (req, res) => {
       .eq('user_id', recipientId);
 
     if (receiverError) {
-      console.error('Erreur récupération convs receiver:', receiverError);
-      return res.status(500).json({ success: false, message: 'Erreur récupération convs receiver' });
+      console.error('Error fetching receiver convs:', receiverError);
+      return res.status(500).json({ success: false, message: 'Error fetching receiver conversations' });
     }
 
     // 3) Intersection en JS
@@ -43,7 +43,7 @@ router.post('/', requireAuth, async (req, res) => {
     const commonConv = receiverConvs.find(c => senderSet.has(c.conversation_id));
 
     if (!commonConv) {
-      return res.status(404).json({ success: false, message: 'Pas de conversation commune' });
+      return res.status(404).json({ success: false, message: 'No common conversation' });
     }
 
     // 4) Insérer le message
@@ -58,15 +58,15 @@ router.post('/', requireAuth, async (req, res) => {
       .single();
 
     if (msgError) {
-      console.error('Erreur insertion message:', msgError);
-      return res.status(500).json({ success: false, message: 'Erreur envoi message' });
+      console.error('Message insertion error:', msgError);
+      return res.status(500).json({ success: false, message: 'Message send error' });
     }
 
     return res.status(201).json({ success: true, message: inserted });
 
   } catch (err) {
-    console.error('Erreur route /message:', err);
-    res.status(500).json({ success: false, message: 'Erreur serveur' });
+    console.error('message route error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 

@@ -1,4 +1,4 @@
-const fruits = ["orange", "kiwi", "banane"];
+const fruits = ["orange", "kiwi", "banana"];
 let counters = {};
 let elements = {};
 let messageFinal = "";
@@ -50,13 +50,13 @@ function buyFruit(fruit) {
   if (qty === 0) return "";
 
   if (qty > stock[fruit]) {
-    return `Pas assez de stock, il reste ${stock[fruit]} ${fruit}s. `;
+    return `Not enough stock, only ${stock[fruit]} ${fruit}s left. `;
   }
 
   stock[fruit] -= qty;
   counters[fruit] = 0;
   updateDisplay(fruit);
-  return `Vous avez acheté ${qty} ${fruit}${qty > 1 ? "s" : ""}. `;
+  return `You bought ${qty} ${fruit}${qty > 1 ? "s" : ""}. `;
 }
 
 // Sauvegarde dans localStorage
@@ -81,7 +81,7 @@ valid.addEventListener('click', () => {
   messageFinal = "";
 
   if (fruits.every(fruit => counters[fruit] === 0)) {
-    affichageAnswer.textContent = "Sélectionnez vos fruits";
+    affichageAnswer.textContent = "Select your fruits";
     return;
   }
 

@@ -29,5 +29,3 @@ Object.entries(routes).forEach(([route, handler]) =>
 app.listen(PORT, () => {
   console.log(`🚀 Serveur lancé sur http://localhost:${PORT}`);
 });
-
-//TEST DE MERGE -> MAIN - DEV

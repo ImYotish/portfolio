@@ -6,13 +6,13 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res.status(400).json({ success: false, message: "Champs manquants" });
+    return res.status(400).json({ success: false, message: "Missing fields" });
   }
 
   try {
     const fakeEmail = `${username}@example.com`;
 
-    // ✅ Connexion via Supabase Auth
+    // ✅ Sign in via Supabase Auth
     const { data, error } = await db.auth.signInWithPassword({
       email: fakeEmail,
       password,
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
 
     const token = data.session?.access_token;
     if (!token) {
-      return res.status(500).json({ success: false, message: "Pas de session générée" });
+      return res.status(500).json({ success: false, message: "No session generated" });
     }
 
     // Pose le cookie
@@ -37,15 +37,15 @@ router.post("/", async (req, res) => {
 
     return res.json({
       success: true,
-      message: "Connexion réussie",
+      message: "Login successful",
       user: {
         id: data.user.id,
         email: data.user.email,
       },
     });
   } catch (err) {
-    console.error("❌ Erreur login:", err);
-    return res.status(500).json({ success: false, message: "Erreur serveur" });
+    console.error("❌ login error:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 });
 

@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   open.addEventListener('mouseenter', () => {
 
     document.documentElement.style.setProperty('--sidebar-width', '20rem');
-    sidebarText.textContent = 'Fermer la barre latérale';
+    sidebarText.textContent = 'Close sidebar';
     newChat.style.display = 'none';
-    newConv.textContent = 'Nouveau chat';
+    newConv.textContent = 'New chat';
     newConv.style.opacity = '1';
     newConv.classList.remove('hidden')
     iconChatGPT.classList.remove('hidden', 'absolute')
@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 
   open.addEventListener('mouseleave', () => {
-    if (detect.textContent === 'fermé') {
+    if (detect.textContent === 'closed') {
       document.documentElement.style.setProperty('--sidebar-width', '4rem');
-      sidebarText.textContent = 'Ouvrir la barre latérale';
+      sidebarText.textContent = 'Open sidebar';
       newChat.style.display = 'inline';
       newConv.textContent = '';
       newConv.style.opacity = '0';
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   sidebar.addEventListener('mouseenter', () => {
       const currentWidth = getComputedStyle(document.documentElement)
         .getPropertyValue('--sidebar-width')
-        .trim(); // supprime espaces
+        .trim(); // remove spaces
 
       if (currentWidth === '4rem') {
         iconHover.style.display = 'inline';
@@ -87,28 +87,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       sidebar.addEventListener('click', () => {    
 
         if (currentWidth === '20rem') {
-          // On ferme
+          // Close
           document.documentElement.style.setProperty('--sidebar-width', '4rem');
-          sidebarText.textContent = 'Ouvrir la barre latérale';
+          sidebarText.textContent = 'Open sidebar';
           newChat.style.display = 'inline';
           newConv.textContent = '';
           newConv.style.opacity = '0';
           newConv.classList.add('hidden')
           iconChatGPT.classList.add('hidden', 'absolute')
-          detect.textContent = 'fermé'
+          detect.textContent = 'closed'
 
         } else {
-          // On ouvre
+          // Open
           document.documentElement.style.setProperty('--sidebar-width', '20rem');
-          sidebarText.textContent = 'Fermer la barre latérale';
+          sidebarText.textContent = 'Close sidebar';
           newChat.style.display = 'none';
-          newConv.textContent = 'Nouveau chat';
+          newConv.textContent = 'New chat';
           newConv.style.opacity = '1';
           newConv.classList.remove('hidden')
           iconChatGPT.classList.remove('hidden', 'absolute')
           iconHover.style.display = 'none';
           iconDefault.style.color = 'inline';
-          detect.textContent = 'ouvert'
+          detect.textContent = 'open'
         }
       })
         
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     sidebar.addEventListener('mouseleave', () => {
       const currentWidth = getComputedStyle(document.documentElement)
         .getPropertyValue('--sidebar-width')
-        .trim(); // supprime espaces
+        .trim(); // remove spaces
 
       if (currentWidth === '4rem') {
         iconHover.style.display = 'none';
