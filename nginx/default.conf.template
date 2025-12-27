@@ -1,0 +1,73 @@
+server {
+    listen 80;
+    server_name localhost;
+
+    root /var/www/growthapp;
+    index index.html;
+
+    # CORS global
+    add_header Access-Control-Allow-Origin "*" always;
+    add_header Access-Control-Allow-Credentials "true" always;
+    add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS" always;
+    add_header Access-Control-Allow-Headers "Content-Type, Authorization, Cookie" always;
+
+    # Injection des variables d'environnement pour le front
+    location = /env.js {
+        default_type application/javascript;
+        return 200 'window._env_={BASE_URL:"${BASE_URL}",MAIN_URL:"${MAIN_URL}",CHATGPT_URL:"${CHATGPT_URL}",MESSAGE_URL:"${MESSAGE_URL}"};';
+    }
+
+    # API Main
+    location /main/api/ {
+        if ($request_method = OPTIONS) {
+            add_header Access-Control-Allow-Origin "*" always;
+            add_header Access-Control-Allow-Credentials "true" always;
+            add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS" always;
+            add_header Access-Control-Allow-Headers "Content-Type, Authorization, Cookie" always;
+            return 204;
+        }
+        proxy_pass http://main:3000/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # API ChatGPT
+    location /chatgpt/api/ {
+        proxy_pass http://chatgpt:3000/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    # API Message
+    location /message/api/ {
+        proxy_pass http://message:3000/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    # Gestion du routage SPA (Single Page Application)
+    location /main {
+        try_files $uri /index.html;
+    }
+
+    location /chatgpt {
+        try_files $uri /index.html;
+    }
+
+    location /message {
+        try_files $uri /index.html;
+    }
+
+    location / {
+        try_files $uri /index.html;
+    }
+}

@@ -25,11 +25,11 @@ form.addEventListener('submit', async e => {
     console.log(password, password2, username)
 
     if (!username || !password || !password2) {
-        return result.textContent = "Veuillez remplir tous les champs";
+        return result.textContent = "Please fill in all fields";
     }
 
     if (password !== password2) {
-        return result.textContent = "Mot de passe différents";
+        return result.textContent = "Passwords do not match";
     }
 
     try {
@@ -48,7 +48,7 @@ form.addEventListener('submit', async e => {
         if (!res.ok) {
             result.textContent = data.message
         } if (data.success) {
-            window.location.href = '../../message/';
+            window.location.href = '../../message/index.html';
         }
         
     }

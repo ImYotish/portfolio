@@ -6,8 +6,8 @@ const router = express.Router();
 
 /**
  * POST /message/generateconv
- * Récupère toutes les conversations de l’utilisateur connecté
- * et renvoie les autres participants (id + username).
+ * Retrieves all conversations of the connected user
+ * and returns the other participants (id + username).
  */
 router.post('/', requireAuth, async (req, res) => {
   try {
@@ -20,8 +20,8 @@ router.post('/', requireAuth, async (req, res) => {
       .eq('user_id', userId);
 
     if (convsError) {
-      console.error('Erreur récupération convs:', convsError);
-      return res.status(500).json({ success: false, message: 'Erreur récupération conversations' });
+      console.error('Error fetching convs:', convsError);
+      return res.status(500).json({ success: false, message: 'Error fetching conversations' });
     }
 
     if (!convs || convs.length === 0) {
@@ -38,8 +38,8 @@ router.post('/', requireAuth, async (req, res) => {
       .neq('user_id', userId);
 
     if (partError) {
-      console.error('Erreur récupération participants:', partError);
-      return res.status(500).json({ success: false, message: 'Erreur récupération participants' });
+      console.error('Error fetching participants:', partError);
+      return res.status(500).json({ success: false, message: 'Error fetching participants' });
     }
 
     const result = participants.map(p => ({
@@ -51,8 +51,8 @@ router.post('/', requireAuth, async (req, res) => {
     res.json({ success: true, data: result });
 
   } catch (err) {
-    console.error('Erreur route /generateconv:', err);
-    res.status(500).json({ success: false, message: 'Erreur serveur' });
+    console.error('generateconv route error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 

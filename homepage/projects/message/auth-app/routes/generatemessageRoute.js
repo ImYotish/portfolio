@@ -6,8 +6,8 @@ const router = express.Router();
 
 /**
  * POST /message/generatemessage
- * body: { id: uuid } → l’ID du destinataire
- * Retourne tous les messages de la conversation commune.
+ * body: { id: uuid } → recipient ID
+ * Returns all messages from the common conversation.
  */
 router.post('/', requireAuth, async (req, res) => {
   try {
@@ -15,10 +15,10 @@ router.post('/', requireAuth, async (req, res) => {
     const receiverId = req.body.id;
 
     if (!receiverId) {
-      return res.status(400).json({ success: false, message: 'Destinataire manquant' });
+      return res.status(400).json({ success: false, message: 'Missing recipient' });
     }
     if (receiverId === senderId) {
-      return res.status(400).json({ success: false, message: 'Impossible de générer une conversation avec soi-même' });
+      return res.status(400).json({ success: false, message: 'Cannot generate a conversation with yourself' });
     }
 
     // 1) Récupérer les convs du sender
@@ -28,8 +28,8 @@ router.post('/', requireAuth, async (req, res) => {
       .eq('user_id', senderId);
 
     if (senderError) {
-      console.error('Erreur récupération convs sender:', senderError);
-      return res.status(500).json({ success: false, message: 'Erreur récupération convs sender' });
+      console.error('Error fetching sender convs:', senderError);
+      return res.status(500).json({ success: false, message: 'Error fetching sender conversations' });
     }
 
     // 2) Récupérer les convs du receiver
@@ -39,8 +39,8 @@ router.post('/', requireAuth, async (req, res) => {
       .eq('user_id', receiverId);
 
     if (receiverError) {
-      console.error('Erreur récupération convs receiver:', receiverError);
-      return res.status(500).json({ success: false, message: 'Erreur récupération convs receiver' });
+      console.error('Error fetching receiver convs:', receiverError);
+      return res.status(500).json({ success: false, message: 'Error fetching receiver conversations' });
     }
 
     // 3) Intersection en JS
@@ -59,15 +59,15 @@ router.post('/', requireAuth, async (req, res) => {
       .order('sent_at', { ascending: true });
 
     if (msgError) {
-      console.error('Erreur récupération messages:', msgError);
-      return res.status(500).json({ success: false, message: 'Erreur serveur' });
+      console.error('Error fetching messages:', msgError);
+      return res.status(500).json({ success: false, message: 'Server error' });
     }
 
     return res.json({ success: true, data: messages || [] });
 
   } catch (err) {
-    console.error('Erreur route /generatemessage:', err);
-    res.status(500).json({ success: false, message: 'Erreur serveur' });
+    console.error('generatemessage route error:', err);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 

@@ -1,5 +1,5 @@
 import express from "express";
-import db from "../database.js"; // ⚠️ ton client Supabase centralisé avec SERVICE_ROLE_KEY
+import db from "../database.js"; // ⚠️ your centralized Supabase client with SERVICE_ROLE_KEY
 
 const router = express.Router();
 
@@ -10,13 +10,13 @@ router.get("/", async (req, res) => {
   }
 
   try {
-    // Vérifie le token auprès de Supabase
+    // Verify the token with Supabase
     const { data: { user }, error } = await db.auth.getUser(token);
     if (error || !user) {
       return res.json({ loggedIn: false });
     }
 
-    // Récupère le profil lié (username)
+    // Retrieve the linked profile (username)
     const { data: profile, error: profileError } = await db
       .from("profiles")
       .select("id, username")
@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
       return res.json({ loggedIn: true, user }); // fallback : renvoie au moins l'user Supabase
     }
 
-    // Fusionne infos Supabase + profil custom
+    // Merge Supabase info + custom profile
     return res.json({
       loggedIn: true,
       user: {
@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error("❌ Erreur check-session:", err);
+    console.error("❌ check-session error:", err);
     return res.json({ loggedIn: false });
   }
 });

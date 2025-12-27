@@ -6,13 +6,13 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res.status(400).json({ success: false, message: "Champs manquants" });
+    return res.status(400).json({ success: false, message: "Missing fields" });
   }
 
   try {
     const fakeEmail = `${username}@example.com`;
 
-    // Création dans Supabase Auth
+    // Create in Supabase Auth
     const { data, error } = await db.auth.signUp({
       email: fakeEmail,
       password,
@@ -24,22 +24,22 @@ router.post("/", async (req, res) => {
 
     const user = data.user;
     if (!user) {
-      return res.status(500).json({ success: false, message: "Utilisateur non créé" });
+      return res.status(500).json({ success: false, message: "User not created" });
     }
 
-    // Insertion dans ta table "profiles"
+    // Insert into your "profiles" table
     const { error: profileError } = await db
       .from("profiles")
       .insert([{ id: user.id, username }]);
 
     if (profileError) {
-      console.error("❌ Erreur insertion profile:", profileError);
+      console.error("❌ profile insert error:", profileError);
     }
 
     // Vérifie si une session est renvoyée
     let token = data.session?.access_token;
 
-    // Si pas de session (ex: confirmation email activée), on force un login
+    // If no session (e.g. email confirmation enabled), force a login
     if (!token) {
       const { data: loginData, error: loginError } = await db.auth.signInWithPassword({
         email: fakeEmail,
@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
       token = loginData.session.access_token;
     }
 
-    // Pose le cookie avec l’access_token Supabase
+    // Set the cookie with the Supabase access_token
     res.cookie("token", token, {
       httpOnly: true,
       secure: false, // ⚠️ mettre true en prod HTTPS
@@ -61,17 +61,16 @@ router.post("/", async (req, res) => {
 
     res.status(200)
 
-    // 👉 Redirection directe côté serveur
-    // Après avoir posé le cookie
+    // 👉 Direct server-side response after setting cookie
     return res.status(200).json({
       success: true,
-      message: "Inscription réussie",
+      message: "Registration successful",
       user: { id: user.id, email: user.email, username }
     });
 
   } catch (err) {
-    console.error("❌ Erreur register:", err);
-    return res.status(500).json({ success: false, message: "Erreur serveur" });
+    console.error("❌ register error:", err);
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 });
 

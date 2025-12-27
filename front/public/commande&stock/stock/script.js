@@ -1,6 +1,6 @@
 let elements = {};
 let counters = {};
-const fruits = ["orange", "kiwi", "banane"];
+const fruits = ["orange", "kiwi", "banana"];
 
 const valid = document.getElementById('valid');
 

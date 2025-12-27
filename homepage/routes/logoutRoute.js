@@ -3,14 +3,14 @@ import express from "express";
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  // Supprime le cookie d'authentification
+  // Clear the auth cookie
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false, // ⚠️ passe à true en production avec HTTPS
+    secure: false, // ⚠️ set to true in production with HTTPS
     sameSite: "lax",
   });
 
-  return res.json({ success: true, message: "Déconnecté" });
+  return res.json({ success: true, message: "Logged out" });
 });
 
 export default router;

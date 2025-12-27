@@ -1,54 +1,47 @@
-
 services:
-  # Service principal (homepage)
   main:
     build: ./homepage
-    command: npm run dev
-    volumes:
-      - ./homepage:/app
+    command: npm start
+    container_name: growthapp_main
     expose:
       - "3000"
     env_file:
       - ./homepage/.env
     networks:
       - backend
+    restart: unless-stopped
 
-  # Service ChatGPT
   chatgpt:
     build: ./homepage/projects/ChatGPT/auth-app
-    command: npm run dev
-    volumes:
-      - ./homepage/projects/ChatGPT/auth-app:/app
+    command: npm start
+    container_name: growthapp_chatgpt
     expose:
       - "3000"
     env_file:
       - ./homepage/.env
     networks:
       - backend
+    restart: unless-stopped
 
-  # Service Message
   message:
     build: ./homepage/projects/message/auth-app
-    command: npm run dev
-    volumes:
-      - ./homepage/projects/message/auth-app:/app
+    command: npm start
+    container_name: growthapp_message
     expose:
       - "3000"
     env_file:
       - ./homepage/.env
     networks:
       - backend
+    restart: unless-stopped
 
-  # Nginx en frontal
   nginx:
-    image: nginx:alpine
+    build: ./nginx
+    container_name: growthapp_nginx
     ports:
-      - "3000:80"
+      - "80"
     volumes:
-      # Template de config Nginx
-      - ./default.conf.template:/etc/nginx/templates/default.conf.template:ro
-      # Dossier public/dist généré par Vite
-      - ./front/dist:/usr/share/nginx/html:ro
+      - ./front/dist:/var/www/growthapp:ro
     env_file:
       - ./.env
     depends_on:

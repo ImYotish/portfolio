@@ -8,12 +8,12 @@ const router = express.Router()
 
 const __dirname = path.resolve();
 
-// Exemple Express
+// Express example
 router.get('/api/conversations/:id', async (req, res) => {
   const convId = req.params.id;
 
   try {
-    // 1. Récupérer la conversation (titre + user)
+    // 1. Retrieve the conversation (title + user)
     const convResult = await db.query(
       `SELECT conv_id
        FROM list_conv`,
@@ -21,7 +21,7 @@ router.get('/api/conversations/:id', async (req, res) => {
     );
 
     if (convResult.rows.length === 0) {
-      return res.status(404).json({ error: 'Conversation introuvable' });
+      return res.status(404).json({ error: 'Conversation not found' });
     }
 
     const conversation = convResult.rows[0];
@@ -48,12 +48,12 @@ router.get('/api/conversations/:id', async (req, res) => {
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
 
-// Route front : toutes les URL /conversation/:id renvoient le même HTML
+// Front route: all /conversation/:id URLs serve the same HTML
 router.get('/conversation/:id', (req, res) => {
   res.sendFile(path.join(__dirname, 'conversation.html'));
 });

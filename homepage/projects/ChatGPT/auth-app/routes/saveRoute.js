@@ -8,11 +8,14 @@ const router = express.Router()
 
 router.post('/', async (req, res) => {
 
-    console.log(req.body)
+    console.log('Save route body:', req.body)
 
     const { message } = req.body
 
+    // TODO: implement save logic properly (placeholder query kept as-is)
     const data = db.query("INSERT INTO chat_list (titre) VALUES()")
+
+    return res.json({ success: true })
 
 })
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,7 @@
               <img class="icon-hover w-[24px] h-[24px] hidden" src="/img/ChatGPT-Logo-2022.svg" alt="">
             </button>
             <div class="text-sidebar bg-black/80 p-2 rounded-lg  invisible opacity-0 absolute group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
-              <p id="sidebarText" class="font-thin text-xs whitespace-nowrap text-white">Ouvrir la barre latérale</p>
+              <p id="sidebarText" class="font-thin text-xs whitespace-nowrap text-white">Open sidebar</p>
             </div>
           </div>
         </div>
@@ -39,8 +39,8 @@
               <p id="newConv" class="font-extralight text-3sm whitespace-nowrap hidden"></p>
             </button>
           </a>
-          <div id="newChat" class="text-sidebar bg-black/80 p-2 rounded-lg  invisible opacity-0 absolute group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
-            <p class="font-thin text-xs whitespace-nowrap text-white">Nouveau chat</p>
+            <div id="newChat" class="text-sidebar bg-black/80 p-2 rounded-lg  invisible opacity-0 absolute group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
+            <p class="font-thin text-xs whitespace-nowrap text-white">New chat</p>
           </div>
         </div>
       </div>
@@ -60,22 +60,22 @@
   <main id="main" class="flex flex-col  flex-1 h-[87vh] overflow-hidden">
       <div class="flex justify-between py-3 px-4 items-center z-10">
         <h2 class="font-bold">ChatGPT</h2>
-        <a href="https://chatgpt.com/#pricing"><button class="text-sm text-white bg-black py-2 px-4 rounded-lg hover:bg-black/80">Obtenir ChatGPT Plus</button></a>
+        <a href="https://chatgpt.com/#pricing"><button class="text-sm text-white bg-black py-2 px-4 rounded-lg hover:bg-black/80">Get ChatGPT Plus</button></a>
       </div>
       <div id="scrollbar" class="overflow-y-auto flex-1 pb-64 pt-32 mt-[-10vh]">
         <div id="content" class="flex flex-col mx-auto w-4/5 max-w-5xl gap-y-8 font-extralight text-lg"></div>
       </div>
       <div id="input" class="flex flex-col py-4 bottom-0 left-16 right-0 items-center justify-center fixed h-screen">
         <div id="presentation" class="flex flex-col items-center justify-center text-center px-4">
-          <h2 class="mb-4 text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-black to-black/20">
-            Lancement de GPT-5
+            <h2 class="mb-4 text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-black to-black/20">
+            Launching GPT-5
           </h2>
           <p class="mb-8 max-w-md text-gray-500 leading-relaxed">
-            Notre tout dernier modèle super intelligent, une inflexion approfondie intégrée, plus intelligent, plus rapide et encore plus utile, est désormais disponible dans ChatGPT pour vous donner la meilleure réponse à chaque fois.
+            Our latest super-intelligent model, with deep integrated fine-tuning — smarter, faster and even more helpful — is now available in ChatGPT to give you the best answer every time.
           </p>
         </div>
         <form class="w-4/5  max-w-4xl bg-white/10 border border-black/10 rounded-lg overflow-hidden p-2 focus-within:border-gray-500 transition-colors duration-300" id="form">
-          <textarea type="text" id="text" class="w-full max-h-32 bg-transparent placeholder-gray-400 focus:outline-none resize-none p-2" rows="1" placeholder="Poser une question..."></textarea>
+          <textarea type="text" id="text" class="w-full max-h-32 bg-transparent placeholder-gray-400 focus:outline-none resize-none p-2" rows="1" placeholder="Ask a question..."></textarea>
           <div class="flex justify-between items-center">
             <div class="flex group items-center justify-center">
               <button type="button" class="p-3 text-gray-400 hover: flex-shrink-0">
@@ -84,8 +84,8 @@
                   <path d="M5 12h14"/>
                 </svg>
               </button>
-              <div class="bg-black/80 p-2 mt-16 rounded-lg  invisible opacity-0 absolute group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
-                <p class="font-thin text-xs text-white">Ajouter un fichier</p>
+                <div class="bg-black/80 p-2 mt-16 rounded-lg  invisible opacity-0 absolute group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
+                <p class="font-thin text-xs text-white">Add a file</p>
               </div>
             </div>
             <div class="flex items-center">
@@ -98,7 +98,7 @@
                   </svg>
                 </button>
                 <div class="bg-black/80 p-2 mt-16 rounded-lg  invisible opacity-0 absolute group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
-                  <p class="font-thin text-xs text-white">Enregistrement vocal</p>
+                  <p class="font-thin text-xs text-white">Voice recording</p>
                 </div>
               </div>
               <div class="flex flex-col group items-center justify-center">
@@ -109,7 +109,7 @@
                   </svg>
                 </button>
                 <div class="bg-black/80 p-2 mt-16 rounded-lg  invisible opacity-0 absolute group-hover:opacity-100 group-hover:visible transition-opacity duration-300">
-                  <p class="font-thin text-xs text-white">Envoyer</p>
+                  <p class="font-thin text-xs text-white">Send</p>
                 </div>
               </div>
             </div>
@@ -117,7 +117,7 @@
         </form>
         <div class="mx-auto">
           <p id="disclaimer"  class="text-gray-400 text-center text-xs mt-2 invisible">
-            ChatGPT peut commettre des erreurs. Envisagez de vérifier les informations importantes.
+            ChatGPT may make mistakes. Consider verifying important information.
           </p>
         </div>
       </div>
@@ -128,7 +128,7 @@
         Loading
         </h2>
         <div class="loader"></div>
-        <div id="loader" class="hidden invisible absolute">fermé</div>
+        <div id="loader" class="hidden invisible absolute">closed</div>
     </div>
     <script src="/env.js"></script>
     <script type="module" src="./script.js"></script>

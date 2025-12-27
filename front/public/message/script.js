@@ -1,6 +1,6 @@
 const { BASE_URL, MAIN_URL, CHATGPT_URL, MESSAGE_URL } = window._env_;
 
-const welcome = document.querySelector('#welcome'); // ⚠️ assure-toi d’avoir un <div id="welcome"></div> dans ton HTML
+const welcome = document.querySelector('#welcome'); // ⚠️ make sure you have a <div id="welcome"></div> in your HTML
 const result = document.querySelector('#result');
 const logoutBtn = document.querySelector('#logout');
 const searchBtn = document.getElementById("searchBtn");
@@ -8,10 +8,10 @@ const searchInput = document.getElementById("searchInput");
 const conversationList = document.getElementById("conversationList");
 const mainSidebar = document.getElementById("mainsidebar");
 
-// ------------------- Vérification de session -------------------
+// ------------------- Session check -------------------
 async function sessionCheck() {
   try {
-    console.log('🔍 Vérification de session...');
+    console.log('🔍 Checking session...');
 
     const res = await fetch(`${MAIN_URL}/check-session`, {
       method: 'GET',
@@ -19,21 +19,21 @@ async function sessionCheck() {
     });
 
     const data = await res.json();
-    console.log('📊 Données de session:', data);
+    console.log('📊 Session data:', data);
 
     if (res.ok && data.loggedIn && data.user) {
-      console.log('✅ Utilisateur connecté:', data.user);
-      welcome.textContent = `Bienvenue ${data.user.username || data.user.email}, tu es maintenant connecté !`;
+      console.log('✅ User connected:', data.user);
+      welcome.textContent = `Welcome ${data.user.username || data.user.email}, you're now connected !`;
       document.body.style.display = 'block'
       return true;
     } else {
-      console.warn('❌ Session non reconnue, redirection immédiate...');
-      window.location.replace('./login/'); 
+      console.warn('❌ Session not recognized, immediate redirect...');
+      window.location.replace('./login/index.html'); 
       return false;
     }
   } catch (err) {
-    console.error('❌ Erreur test session:', err);
-    window.location.replace('./login/'); 
+  console.error('❌ Session check error:', err);
+    window.location.replace('./login/index.html'); 
     return false;
   }
 }
@@ -43,7 +43,7 @@ sessionCheck();
 // ------------------- DOM Ready -------------------
 document.addEventListener('DOMContentLoaded', async () => {
 
-  // ------------------- Ajout conversation -------------------
+  // ------------------- Add conversation -------------------
   function addConversation({ id, username }) {
     const newConv = document.createElement("div");
     newConv.classList.add("conversation");
@@ -56,20 +56,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     sidebarUser.id = `sidebar_${id}`;
     sidebarUser.innerHTML = `
       <div class="sidebarHeader">
-        <h3 class="sidebarUser">Conversation avec ${username}</h3>
+        <h3 class="sidebarUser">Conversation with ${username}</h3>
         <button class="closeSidebar">✖</button>
       </div>
       <div class="chatContent" id="chatContent_${id}"></div>
       <div class="chatInputZone">
-        <input type="text" class="chatInput" placeholder="💬 Ton message…" />
-        <button class="messageBtn">Envoyer</button>
+        <input type="text" class="chatInput" placeholder="💬 Your message…" />
+        <button class="messageBtn">Send</button>
       </div>
     `;
 
     const messageBtn = sidebarUser.querySelector('.messageBtn');
     const messages = sidebarUser.querySelector('.chatContent');
 
-    // Affichage sidebar
+    // Show sidebar
     newConv.addEventListener('click', () => {
       document.querySelectorAll('.sidebar').forEach(conv => conv.style.display = 'none');
       sidebarUser.style.display = 'flex';
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       sidebarUser.style.display = 'none';
     });
 
-    // Envoi message
+    // Send message
     messageBtn.addEventListener('click', async () => {
       const text = sidebarUser.querySelector('.chatInput');
       const content = text.value.trim();
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         if (!res.ok) {
-          result.textContent = "Erreur d'envoi du message";
+          result.textContent = "Message sending error";
         } else {
           const newMessage = document.createElement("div");
           newMessage.classList.add("message");
@@ -104,15 +104,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           messages.scrollTop = messages.scrollHeight;
         }
       } catch (err) {
-        console.error("❌ Erreur envoi message:", err);
-        result.textContent = "Erreur réseau lors de l'envoi";
+        console.error("❌ Message sending error:", err);
+        result.textContent = "Network error while sending";
       }
     });
 
     mainSidebar.appendChild(sidebarUser);
   }
 
-  // ------------------- Génération conversations -------------------
+  // ------------------- Generate conversations -------------------
   async function generateConv() {
     try {
       const res = await fetch(`${MESSAGE_URL}/generateconv`, {
@@ -145,20 +145,20 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
       } else {
-        console.log("ℹ️ Aucune conversation trouvée");
+        console.log("ℹ️ No conversation found");
       }
     } catch (err) {
-      console.error("❌ Erreur génération conversations:", err);
+      console.error("❌ Conversation generation error:", err);
     }
   }
   generateConv();
 
-  // ------------------- Recherche utilisateur -------------------
+  // ------------------- User search -------------------
   searchBtn.addEventListener('click', async () => {
     try {
       const username = searchInput.value.trim();
       if (!username) {
-        result.textContent = 'Veuillez remplir le champ';
+        result.textContent = 'Please fill in the field';
         return;
       }
 
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const { id: userId, username: foundUsername } = data;
 
       if (document.getElementById(`sidebar_${userId}`)) {
-        result.textContent = 'Utilisateur déjà sélectionné';
+        result.textContent = 'User already selected';
         return;
       }
 
@@ -194,8 +194,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       searchInput.value = "";
       result.textContent = "";
     } catch (err) {
-      console.error("❌ Erreur recherche utilisateur:", err);
-      result.textContent = "Erreur réseau lors de la recherche";
+      console.error("❌ User search error:", err);
+      result.textContent = "Network error while searching";
     }
   });
 
@@ -210,13 +210,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        window.location.replace('./login/');
+        window.location.replace('./login/index.html');
       } else {
-        result.textContent = data.message || "Erreur de déconnexion";
+        result.textContent = data.message || "Logout error";
       }
     } catch (err) {
-      console.error("❌ Erreur logout:", err);
-      result.textContent = 'Erreur réseau lors de la déconnexion';
+      console.error("❌ Logout error:", err);
+      result.textContent = 'Network error while disconnecting';
     }
   });
 });

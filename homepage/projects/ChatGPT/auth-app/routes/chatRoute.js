@@ -1,6 +1,6 @@
 import express from 'express';
 import { api } from '../utils/buffer.js';
-import db from '../database.js'; // ton client Supabase
+import db from '../database.js'; // your Supabase client
 import { nanoid } from 'nanoid';
 
 const router = express.Router();
@@ -10,10 +10,10 @@ router.post('/', async (req, res) => {
   const input = messages?.[0]?.content;
 
   if (!input) {
-    return res.status(400).json({ error: 'Message manquant' });
+    return res.status(400).json({ error: 'Missing message' });
   }
 
-  // 1) Générer un ID unique et insérer dans chat_list
+  // 1) Generate a unique ID and insert into chat_list
   let id, success = false;
   while (!success) {
     try {
@@ -21,11 +21,11 @@ router.post('/', async (req, res) => {
 
       const { error } = await db
         .from('chat_list')
-        .insert({ conv_id: id, titre: 'En cours...' });
+        .insert({ conv_id: id, titre: 'In progress...' });
 
       if (error) {
         if (error.code === '23505') {
-          // doublon → on réessaie
+          // duplicate -> retry
           continue;
         }
         throw error;
@@ -33,18 +33,18 @@ router.post('/', async (req, res) => {
 
       success = true;
     } catch (err) {
-      console.error('Erreur insertion chat_list:', err);
-      return res.status(500).json({ error: 'Erreur création conversation' });
+      console.error('chat_list insertion error:', err);
+      return res.status(500).json({ error: 'Conversation creation error' });
     }
   }
 
-  console.log('Nouvelle conversation ID:', id);
+  console.log('New conversation ID:', id);
 
-  // 2) Envoyer l’ID dans un header
+  // 2) Send the ID in a header
   res.setHeader('X-Conv-Id', id);
   res.setHeader('Access-Control-Expose-Headers', 'X-Conv-Id');
 
-  // 3) Générer la réponse en streaming
+  // 3) Generate the response as a stream
   let output = '';
   await api(messages, (token) => {
     output += token;
@@ -54,15 +54,15 @@ router.post('/', async (req, res) => {
 
   res.end();
 
-  // 4) Générer un titre court basé sur input/output
+  // 4) Generate a short title based on input/output
   let title = '';
   const text = [
     {
       role: 'user',
       content:
-        'Donne moi un titre de 4 mots maximum, sans ponctuation ni style. Input : ' +
+        'Give me a title of at most 4 words, no punctuation or style. Input: ' +
         input +
-        ' Output : ' +
+        ' Output: ' +
         output,
     },
   ];
@@ -71,9 +71,9 @@ router.post('/', async (req, res) => {
     title += token;
   });
 
-  console.log('Titre généré:', title);
+  console.log('Generated title:', title);
 
-  // 5) Mettre à jour le titre et insérer la conversation
+  // 5) Update the title and insert the conversation
   try {
     await db.from('chat_list').update({ titre: title }).eq('conv_id', id);
 
@@ -83,7 +83,7 @@ router.post('/', async (req, res) => {
       output,
     });
   } catch (err) {
-    console.error('Erreur mise à jour chat:', err);
+    console.error('Chat update error:', err);
   }
 });
 
