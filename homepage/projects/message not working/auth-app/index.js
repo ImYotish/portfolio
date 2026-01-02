@@ -21,7 +21,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'change_this_secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }        // true en prod HTTPS
+  cookie: { secure: true }
 }));
 
 // ---- Serve static files ----

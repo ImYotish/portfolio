@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
     // Set the cookie with the Supabase access_token
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // ⚠️ mettre true en prod HTTPS
+      secure: true,
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24, // 24h
     });

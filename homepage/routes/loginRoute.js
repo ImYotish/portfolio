@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
     // Pose le cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // ⚠️ true en prod HTTPS
+      secure: true,
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24, // 24h
     });

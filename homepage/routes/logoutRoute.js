@@ -6,7 +6,7 @@ router.post("/", (req, res) => {
   // Clear the auth cookie
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false, // ⚠️ set to true in production with HTTPS
+    secure: true,
     sameSite: "lax",
   });
 
