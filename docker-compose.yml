@@ -1,36 +1,36 @@
 services:
-  main:
-    build: ./homepage
+  main-api:
+    build: ./main-api
     command: npm start
     container_name: growthapp_main
     expose:
       - "3000"
     env_file:
-      - ./homepage/.env
+      - ./main-api/.env
     networks:
       - backend
     restart: unless-stopped
 
-  chatgpt:
-    build: ./homepage/projects/ChatGPT/auth-app
+  chatgpt-api:
+    build: ./chatgpt-api
     command: npm start
     container_name: growthapp_chatgpt
     expose:
       - "3000"
     env_file:
-      - ./homepage/.env
+      - ./main-api/.env
     networks:
       - backend
     restart: unless-stopped
 
-  message:
-    build: ./homepage/projects/message/auth-app
+  message-api:
+    build: ./message-api
     command: npm start
     container_name: growthapp_message
     expose:
       - "3000"
     env_file:
-      - ./homepage/.env
+      - ./main-api/.env
     networks:
       - backend
     restart: unless-stopped
@@ -53,9 +53,9 @@ services:
       - CHATGPT_URL=${CHATGPT_URL}
       - MESSAGE_URL=${MESSAGE_URL}
     depends_on:
-      - main
-      - chatgpt
-      - message
+      - main-api
+      - chatgpt-api
+      - message-api
     networks:
       - backend
     restart: unless-stopped
